@@ -42,12 +42,6 @@ class MainGUI:
         the_option_four_entry=Entry(self.root, bg='white', width=40, bd=2, selectborderwidth=5)
         the_option_four_entry.place(x=230, y=250)
 
-        store_question_and_option=partial(self.add_question_option,question_entry,the_first_option_entry,\
-                            the_second_option_entry,the_third_option_entry,\
-                                the_option_four_entry)
-        store_button=Button(self.root,text='Store Test' ,command=store_question_and_option,bd=4 ,width=20 ,activebackground='lightgrey' ,font='Bnazanin 10 bold')
-        store_button.place(x=150,y=285)
-
         CheckVar1 = IntVar(self.root)
         CheckVar2 = IntVar(self.root)
         CheckVar3 = IntVar(self.root)
@@ -75,7 +69,39 @@ class MainGUI:
                  onvalue = 1, offvalue = 0)        
         the_optin_four_checkbox.place(x=50,y=250)
 
-    def add_question_option(self,question_entry,the_first_option_entry,\
+
+        store_question_and_option=partial(self.add_question_option,CheckVar1,CheckVar2,CheckVar3,CheckVar4,question_entry,the_first_option_entry,\
+                            the_second_option_entry,the_third_option_entry,\
+                                the_option_four_entry)
+
+        store_button=Button(self.root,text='Store Question' ,command=store_question_and_option,bd=4 ,width=20 ,activebackground='lightgrey' ,font='Bnazanin 10 bold')
+        store_button.place(x=50,y=285)
+
+        store_button=Button(self.root,text='Next Questtion' ,command=self.rerun_app ,bd=4 ,width=20 ,activebackground='lightgrey' ,font='Bnazanin 10 bold')
+        store_button.place(x=280,y=285)
+
+        
+
+
+
+    def check_true_option(self,CheckVar1,CheckVar2,CheckVar3,CheckVar4,the_first_option_entry,\
+                                the_second_option_entry,the_third_option_entry,the_option_four_entry):
+    
+        if CheckVar1.get()==1:
+            test_value=the_first_option_entry
+            return test_value
+        elif CheckVar2.get()==1:
+            test_value=the_second_option_entry
+            return test_value
+        elif CheckVar3.get()==1:
+            test_value=the_third_option_entry
+            return test_value
+        else:
+            test_value=the_option_four_entry
+            return test_value
+
+
+    def add_question_option(self,CheckVar1,CheckVar2,CheckVar3,CheckVar4,question_entry,the_first_option_entry,\
                             the_second_option_entry,the_third_option_entry,\
                                 the_option_four_entry):
         question_entry=question_entry.get()
@@ -84,12 +110,18 @@ class MainGUI:
         the_third_option_entry=the_third_option_entry.get()
         the_option_four_entry=the_option_four_entry.get()
 
-        dictionary={question_entry:{'1st':the_first_option_entry,"2st":the_second_option_entry,"3st":the_third_option_entry,"4st":the_option_four_entry}}
+        true_option=self.check_true_option(CheckVar1,CheckVar2,CheckVar3,CheckVar4,the_first_option_entry,\
+                                the_second_option_entry,the_third_option_entry,the_option_four_entry)
+                                
+        dictionary={question_entry:{'1st':the_first_option_entry,"2st":the_second_option_entry,"3st":the_third_option_entry,"4st":the_option_four_entry,"5st":true_option}}
         print(dictionary)
         self.json_obj.add_dectionary(dictionary)
-        
 
+    def rerun_app(self):
+        self.root.destroy()
+        main=MainGUI()
+        main.root.mainloop()
 
-
+    
 main=MainGUI()
 main.root.mainloop()
