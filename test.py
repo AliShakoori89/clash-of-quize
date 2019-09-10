@@ -18,7 +18,6 @@ class Testpage:
         question_label.pack( side = TOP  )
 
         self.option=self.json_obj.search_option(self.all_question[i])
-        print(self.option)
 
         select_option_value=partial(self.check_option,self.option['1'],self.all_question[i])
         option_label=Button(self.root,text=self.option['1'],width=30,justify=RIGHT , command=select_option_value )
