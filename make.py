@@ -15,31 +15,31 @@ class MainGUI:
         lable_for_write_test_question=Label(self.root,text=" : سوال ")
         lable_for_write_test_question.place(x=450, y=10)
 
-        question_entry=Entry(self.root, bg='white', width=75, bd=2, selectborderwidth=5)
+        question_entry=Entry(self.root, bg='white', justify=RIGHT,width=75, bd=2, selectborderwidth=5)
         question_entry.place(x=20,y=35)
 
         the_first_option=Label(self.root,text=" :گزینه اول ")
         the_first_option.place(x=430, y=80)
 
-        the_first_option_entry=Entry(self.root, bg='white', width=40, bd=2, selectborderwidth=5)
+        the_first_option_entry=Entry(self.root, bg='white',justify=RIGHT , width=40, bd=2, selectborderwidth=5)
         the_first_option_entry.place(x=230, y=100)
 
         the_second_option=Label(self.root,text=" :گزینه دوم ")
         the_second_option.place(x=430, y=130)
 
-        the_second_option_entry=Entry(self.root, bg='white', width=40, bd=2, selectborderwidth=5)
+        the_second_option_entry=Entry(self.root, bg='white',justify=RIGHT , width=40, bd=2, selectborderwidth=5)
         the_second_option_entry.place(x=230, y=150)
 
         the_third_option=Label(self.root,text=" :گزینه سوم ")
         the_third_option.place(x=430, y=180)
 
-        the_third_option_entry=Entry(self.root, bg='white', width=40, bd=2, selectborderwidth=5)
+        the_third_option_entry=Entry(self.root, bg='white',justify=RIGHT , width=40, bd=2, selectborderwidth=5)
         the_third_option_entry.place(x=230, y=200)
 
         the_option_four=Label(self.root,text=" :گزینه چهارم ")
         the_option_four.place(x=430, y=230)
 
-        the_option_four_entry=Entry(self.root, bg='white', width=40, bd=2, selectborderwidth=5)
+        the_option_four_entry=Entry(self.root, bg='white',justify=RIGHT , width=40, bd=2, selectborderwidth=5)
         the_option_four_entry.place(x=230, y=250)
 
         CheckVar1 = IntVar(self.root)
@@ -113,7 +113,7 @@ class MainGUI:
         true_option=self.check_true_option(CheckVar1,CheckVar2,CheckVar3,CheckVar4,the_first_option_entry,\
                                 the_second_option_entry,the_third_option_entry,the_option_four_entry)
                                 
-        dictionary={question_entry:{'1st':the_first_option_entry,"2st":the_second_option_entry,"3st":the_third_option_entry,"4st":the_option_four_entry,"5st":true_option}}
+        dictionary={question_entry:{1:the_first_option_entry,2:the_second_option_entry,3:the_third_option_entry,4:the_option_four_entry,5:true_option,"question":question_entry}}
         print(dictionary)
         self.json_obj.add_dectionary(dictionary)
 
