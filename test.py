@@ -1,8 +1,10 @@
 import tkinter as tk
+from tkinter.ttk import *
 from tkinter import *
 import Json
 from functools import partial
-# import make
+# from tkinter import Progressbar
+# import ttk
 global i
 i=0
 global points
@@ -19,6 +21,9 @@ class Testpage:
 
         self.option=self.json_obj.search_option(self.all_question[i])
 
+        progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate')
+        progress.place(x=450,y=120)
+        
         select_option_value=partial(self.check_option,self.option['1'],self.all_question[i])
         option_label=Button(self.root,text=self.option['1'],width=30,justify=RIGHT , command=select_option_value )
         option_label.place(x=350,y=40)
@@ -35,10 +40,36 @@ class Testpage:
         option_label=Button(self.root,text=self.option['4'],width=30,justify=RIGHT , command=select_option_value )
         option_label.place(x=50,y=80)
         
-        score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
-        score_label.place(x=30,y=120)
-        
+        # score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
+        # score_label.place(x=30,y=120)
+        self.root.after(5000,self.bar)
         self.root.after(5000,self.new_question)
+        #self.root.after(5000,self.bar)
+
+
+    def bar(self,progress): 
+        import time 
+        progress['value'] = 20
+        self.root.update_idletasks() 
+        time.sleep(1) 
+
+        progress['value'] = 40
+        self.root.update_idletasks() 
+        time.sleep(1) 
+
+        progress['value'] = 50
+        self.root.update_idletasks() 
+        time.sleep(1) 
+
+        progress['value'] = 60
+        self.root.update_idletasks() 
+        time.sleep(1) 
+
+        progress['value'] = 80
+        self.root.update_idletasks() 
+        time.sleep(1) 
+        progress['value'] = 100
+
 
     def read_question(self):
         question=self.json_obj.read_dictionary_keys()
@@ -50,8 +81,8 @@ class Testpage:
         your_select=option
         score=self.json_obj.check_answer(question,your_select)
         points+=score
-        score_label_value=Label(self.root,text=points,font='Bnazanin 10 bold')
-        score_label_value.place(x=70,y=120)
+        # score_label_value=Label(self.root,text=points,font='Bnazanin 10 bold')
+        # score_label_value.place(x=70,y=120)
         self.root.after_cancel(self.new_question)
         self.new_question()
         
