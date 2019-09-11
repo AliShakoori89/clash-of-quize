@@ -43,34 +43,28 @@ class MainGUI:
         the_option_four_entry.place(x=230, y=250)
 
         CheckVar1 = IntVar(self.root)
-        CheckVar2 = IntVar(self.root)
-        CheckVar3 = IntVar(self.root)
-        CheckVar4 = IntVar(self.root)
 
+        
         chechbox_label=Label(self.root,text='گزینه صحیح')
         chechbox_label.place(x=30,y=80)
 
-        the_first_option_checkbox = Checkbutton(self.root, variable = CheckVar1, \
-                 onvalue = 1, offvalue = 0 )
+        the_first_option_checkbox = Radiobutton(self.root, variable = CheckVar1,value=1)
         the_first_option_checkbox.place(x=50,y=105)
 
 
-        the_second_option_checkbox = Checkbutton(self.root, variable = CheckVar2, \
-                 onvalue = 1, offvalue = 0 )
+        the_second_option_checkbox = Radiobutton(self.root, variable = CheckVar1,value=2)
         the_second_option_checkbox.place(x=50,y=150)
         
 
-        the_third_option_checkbox = Checkbutton(self.root, variable = CheckVar3, \
-                 onvalue = 1, offvalue = 0)
+        the_third_option_checkbox = Radiobutton(self.root, variable = CheckVar1,value=3)
         the_third_option_checkbox.place(x=50,y=200)
 
 
-        the_optin_four_checkbox = Checkbutton(self.root, variable = CheckVar4, \
-                 onvalue = 1, offvalue = 0)        
+        the_optin_four_checkbox = Radiobutton(self.root, variable = CheckVar1,value=4)        
         the_optin_four_checkbox.place(x=50,y=250)
 
 
-        store_question_and_option=partial(self.add_question_option,CheckVar1,CheckVar2,CheckVar3,CheckVar4,question_entry,the_first_option_entry,\
+        store_question_and_option=partial(self.add_question_option,CheckVar1,question_entry,the_first_option_entry,\
                             the_second_option_entry,the_third_option_entry,\
                                 the_option_four_entry)
 
@@ -84,16 +78,16 @@ class MainGUI:
 
 
 
-    def check_true_option(self,CheckVar1,CheckVar2,CheckVar3,CheckVar4,the_first_option_entry,\
+    def check_true_option(self,CheckVar1,the_first_option_entry,\
                                 the_second_option_entry,the_third_option_entry,the_option_four_entry):
     
         if CheckVar1.get()==1:
             test_value=the_first_option_entry
             return test_value
-        elif CheckVar2.get()==1:
+        elif CheckVar1.get()==2:
             test_value=the_second_option_entry
             return test_value
-        elif CheckVar3.get()==1:
+        elif CheckVar1.get()==3:
             test_value=the_third_option_entry
             return test_value
         else:
@@ -101,7 +95,7 @@ class MainGUI:
             return test_value
 
 
-    def add_question_option(self,CheckVar1,CheckVar2,CheckVar3,CheckVar4,question_entry,the_first_option_entry,\
+    def add_question_option(self,CheckVar1,question_entry,the_first_option_entry,\
                             the_second_option_entry,the_third_option_entry,\
                                 the_option_four_entry):
         question_entry=question_entry.get()
@@ -110,7 +104,7 @@ class MainGUI:
         the_third_option_entry=the_third_option_entry.get()
         the_option_four_entry=the_option_four_entry.get()
 
-        true_option=self.check_true_option(CheckVar1,CheckVar2,CheckVar3,CheckVar4,the_first_option_entry,\
+        true_option=self.check_true_option(CheckVar1,the_first_option_entry,\
                                 the_second_option_entry,the_third_option_entry,the_option_four_entry)
                                 
         dictionary={question_entry:{1:the_first_option_entry,2:the_second_option_entry,3:the_third_option_entry,4:the_option_four_entry,5:true_option,"question":question_entry}}
