@@ -44,7 +44,7 @@ class MainGUI:
 
         CheckVar1 = IntVar(self.root)
 
-        
+
         chechbox_label=Label(self.root,text='گزینه صحیح')
         chechbox_label.place(x=30,y=80)
 
@@ -93,7 +93,6 @@ class MainGUI:
         else:
             test_value=the_option_four_entry
             return test_value
-
 
     def add_question_option(self,CheckVar1,question_entry,the_first_option_entry,\
                             the_second_option_entry,the_third_option_entry,\
