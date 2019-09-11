@@ -3,6 +3,7 @@ from tkinter import *
 import Json
 from functools import partial
 # import make
+global obj
 global i
 i=0
 global points
@@ -35,6 +36,8 @@ class Testpage:
         option_label=Button(self.root,text=self.option['4'],width=30,justify=RIGHT , command=select_option_value )
         option_label.place(x=50,y=80)
         
+        # progress=Progressbar(tk,orient=HORIZONTAL,length=100,mode='determinate') 
+        
         score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
         score_label.place(x=30,y=120)
         
@@ -65,18 +68,25 @@ class Testpage:
 
 
     def new_question(self):
+        global obj
         global i
         i+=1
         question=self.read_question()
         n=len(question)
         if i!=n:
-            self.root.destroy()
-            main=Testpage()
-            main.root.mainloop(i)
+            del obj
+            self.quit()
+            
+            obj=Testpage()
+            obj.root.mainloop(i)
         else:
-            self.root.destroy()
+            del obj
+            self.quit()
             self.points_label()
 
+    def quit(self):
+        self.root.destroy()
 
-main=Testpage()
-main.root.mainloop(i)
+
+obj=Testpage()
+obj.root.mainloop(i)
