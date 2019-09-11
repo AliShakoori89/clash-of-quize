@@ -16,13 +16,13 @@ class Testpage:
         self.root.title('Question Page')
         self.json_obj=Json.JsonHandler()
         self.all_question=self.read_question()
-        question_label=Label(self.root,text=self.all_question[i])
-        question_label.pack( side = TOP  )
+        self.first_question_label=Label(self.root,text=self.all_question[i])
+        self.first_question_label.pack( side = TOP  )
 
         self.option=self.json_obj.search_option(self.all_question[i])
 
-        progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate')
-        progress.place(x=450,y=120)
+        # progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate')
+        # progress.place(x=450,y=120)
         
         select_option_value=partial(self.check_option,self.option['1'],self.all_question[i])
         option_label=Button(self.root,text=self.option['1'],width=30,justify=RIGHT , command=select_option_value )
@@ -40,35 +40,36 @@ class Testpage:
         option_label=Button(self.root,text=self.option['4'],width=30,justify=RIGHT , command=select_option_value )
         option_label.place(x=50,y=80)
         
-        # score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
-        # score_label.place(x=30,y=120)
-        self.root.after(5000,self.bar)
-        self.root.after(5000,self.new_question)
+        self.score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
+        self.score_label.place(x=30,y=120)
+        # self.root.after(5000,self.bar)
+        
+        self.time_solve=self.root.after(10000,self.new_question)
         #self.root.after(5000,self.bar)
 
 
-    def bar(self,progress): 
-        import time 
-        progress['value'] = 20
-        self.root.update_idletasks() 
-        time.sleep(1) 
+    # def bar(self,progress): 
+    #     import time 
+    #     progress['value'] = 20
+    #     self.root.update_idletasks() 
+    #     time.sleep(1) 
 
-        progress['value'] = 40
-        self.root.update_idletasks() 
-        time.sleep(1) 
+    #     progress['value'] = 40
+    #     self.root.update_idletasks() 
+    #     time.sleep(1) 
 
-        progress['value'] = 50
-        self.root.update_idletasks() 
-        time.sleep(1) 
+    #     progress['value'] = 50
+    #     self.root.update_idletasks() 
+    #     time.sleep(1) 
 
-        progress['value'] = 60
-        self.root.update_idletasks() 
-        time.sleep(1) 
+    #     progress['value'] = 60
+    #     self.root.update_idletasks() 
+    #     time.sleep(1) 
 
-        progress['value'] = 80
-        self.root.update_idletasks() 
-        time.sleep(1) 
-        progress['value'] = 100
+    #     progress['value'] = 80
+    #     self.root.update_idletasks() 
+    #     time.sleep(1) 
+    #     progress['value'] = 100
 
 
     def read_question(self):
@@ -81,9 +82,10 @@ class Testpage:
         your_select=option
         score=self.json_obj.check_answer(question,your_select)
         points+=score
-        # score_label_value=Label(self.root,text=points,font='Bnazanin 10 bold')
-        # score_label_value.place(x=70,y=120)
-        self.root.after_cancel(self.new_question)
+        score_label_value=Label(self.root,text=points,font='Bnazanin 10 bold')
+        score_label_value.place(x=70,y=120)
+        # self.root.after_cancel(self.new_question)
+        # self.root.after(1,self.new_question)
         self.new_question()
         
     def points_label(self):
@@ -103,38 +105,43 @@ class Testpage:
         i+=1
         question=self.read_question()
         n=len(question)
+        print(n)
+        if i>1:
+            self.question_label.destroy()
         if i!=n:
+            # self.root.after_cancel(self.new_question)
+            # self.root.after(10000,lambda:self.new_question())
             self.all_question=self.read_question()
-            question_label=Label(self.root,text=self.all_question[i])
+            self.first_question_label.destroy()
+            self.question_label=Label(self.root,text=self.all_question[i])
+            self.question_label.pack( side = TOP  )
 
             self.option=self.json_obj.search_option(self.all_question[i])
 
             select_option_value=partial(self.check_option,self.option['1'],self.all_question[i])
-            option_label1=Button(self.root,text=self.option['1'],width=30,justify=RIGHT , command=select_option_value )
-            
+            option_label=Button(self.root,text=self.option['1'],width=30,justify=RIGHT , command=select_option_value )
+            option_label.place(x=350,y=40)
+
             select_option_value=partial(self.check_option,self.option['2'],self.all_question[i])
-            option_label2=Button(self.root,text=self.option['2'],width=30,justify=RIGHT , command=select_option_value )
+            option_label=Button(self.root,text=self.option['2'],width=30,justify=RIGHT , command=select_option_value )
+            option_label.place(x=50,y=40)
             
             select_option_value=partial(self.check_option,self.option['3'],self.all_question[i])
-            option_label3=Button(self.root,text=self.option['3'],width=30,justify=RIGHT , command=select_option_value )
+            option_label=Button(self.root,text=self.option['3'],width=30,justify=RIGHT , command=select_option_value )
+            option_label.place(x=350,y=80)
 
             select_option_value=partial(self.check_option,self.option['4'],self.all_question[i])
-            option_label4=Button(self.root,text=self.option['4'],width=30,justify=RIGHT , command=select_option_value )
+            option_label=Button(self.root,text=self.option['4'],width=30,justify=RIGHT , command=select_option_value )
+            option_label.place(x=50,y=80)
+            
+            self.score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
+            self.score_label.place(x=30,y=120)
 
-            
-            score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
-            
-            self.new_question_window(question_label,option_label1,option_label2,option_label3,option_label4,score_label)
+            self.time_solve=self.root.after(10000,self.new_question)
+            # self.new_question_window(question_label,option_label1,option_label2,option_label3,option_label4,score_label)
         else:
             self.root.destroy()
             self.points_label()
-
-    def new_question_window(self,question_label,option_label1,option_label2,option_label3,option_label4,score_label):
-        global i
-        self.root.destroy()
-        obj1=Testpage()
-        obj1.root.mainloop()
-            
            
 obj=Testpage()
-obj.root.mainloop(i)
+obj.root.mainloop()
