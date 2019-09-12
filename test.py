@@ -7,6 +7,7 @@ import time
 from multiprocessing import Process
 from threading import Thread
 from progressbar import ProgressBar
+import threading
 # import ttk
 global i
 i=0
@@ -47,9 +48,12 @@ class Testpage:
         self.score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
         self.score_label.place(x=30,y=120)
 
-        Thread(target = self.respite_time).start()
-        Thread(target = self.bar).start()
-
+        global t1
+        global t2
+        t1=Thread(target = self.respite_time)
+        t1.start()
+        t2=Thread(target = self.bar)
+        t2.start()
 
 
     def respite_time(self):
@@ -102,15 +106,23 @@ class Testpage:
         self.barVar.set(90)
         time.sleep(1) 
         self.progress['value'] = 100
+        
 
 
     def read_question(self):
         question=self.json_obj.read_dictionary_keys()
         return question
 
+    # def run(self): 
+    #     while True: 
+    #         # print('thread running') 
+    #         global stop_threads 
+    #         if stop_threads: 
+    #             break
 
     def check_option(self,option,question):
         global points
+        global t1
         your_select=option
         score=self.json_obj.check_answer(question,your_select)
         points+=score
@@ -118,15 +130,26 @@ class Testpage:
         score_label_value.place(x=70,y=120)
         self.root.after_cancel(self.time_solve)
         self.progress.destroy()
+        self.progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate', variable=self.barVar)
+        self.progress.place(x=450,y=120)
+        self.root.after_cancel(self.bar)
+        # global stop_threads
+        # stop_threads = True
+        # self.bar.wait()
+        # self.root.update_idletasks() 
+        # self.progress['value'] = 100
+        # self.progress.destroy()
         # self.bar.
         # x = self.barVar.get()
         # if x < 100:
         #     x=0
-        #     # self.barVar.set(x+10)
+        #     self.barVar.set(x+10)
         #     self.progress.stop()
-        #     self.bar()
+        # self.update_progress_bar()
         self.new_question()
-        
+
+   
+
     def points_label(self):
         global points
         self.root = tk.Tk()
@@ -143,8 +166,8 @@ class Testpage:
     #     if x < 100:
     #         x=0
     #         self.barVar.set(x+10)
-    #         self.progress.stop()
-    #         self.bar()
+    #         self.progress['value'] = 100
+    #         # self.bar()
 
 
     def new_question(self):
@@ -163,8 +186,8 @@ class Testpage:
 
             self.option=self.json_obj.search_option(self.all_question[i])
 
-            self.progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate', variable=self.barVar)
-            self.progress.place(x=450,y=120)
+            # self.progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate', variable=self.barVar)
+            # self.progress.place(x=450,y=120)
 
             select_option_value=partial(self.check_option,self.option['1'],self.all_question[i])
             option_label=Button(self.root,text=self.option['1'],width=30,justify=RIGHT , command=select_option_value )
