@@ -50,62 +50,63 @@ class Testpage:
 
         global t1
         global t2
+        # self.time_solve=self.root.after(10000,self.new_question)
         t1=Thread(target = self.respite_time)
         t1.start()
         t2=Thread(target = self.bar)
         t2.start()
-
+        
 
     def respite_time(self):
         self.time_solve=self.root.after(10000,self.new_question)
         
 
     def bar(self): 
-        self.progress['value'] = 10
-        self.root.update_idletasks()
+        # self.progress['value'] = 10
+        # self.root.update_idletasks()
         self.barVar.set(10) 
         time.sleep(1) 
 
-        self.progress['value'] = 20
-        self.root.update_idletasks()
+        # self.progress['value'] = 20
+        # self.root.update_idletasks()
         self.barVar.set(20) 
         time.sleep(1) 
 
-        self.progress['value'] = 30
-        self.root.update_idletasks() 
+        # self.progress['value'] = 30
+        # self.root.update_idletasks() 
         self.barVar.set(30)
         time.sleep(1) 
 
-        self.progress['value'] = 40
-        self.root.update_idletasks() 
+        # self.progress['value'] = 40
+        # self.root.update_idletasks() 
         self.barVar.set(40)
         time.sleep(1) 
 
-        self.progress['value'] = 50
-        self.root.update_idletasks() 
+        # self.progress['value'] = 50
+        # self.root.update_idletasks() 
         self.barVar.set(50)
         time.sleep(1) 
 
-        self.progress['value'] = 60
-        self.root.update_idletasks() 
+        # self.progress['value'] = 60
+        # self.root.update_idletasks() 
         self.barVar.set(60)
         time.sleep(1) 
 
-        self.progress['value'] = 70
-        self.root.update_idletasks() 
+        # self.progress['value'] = 70
+        # self.root.update_idletasks() 
         self.barVar.set(70)
         time.sleep(1) 
 
-        self.progress['value'] = 80
-        self.root.update_idletasks() 
+        # self.progress['value'] = 80
+        # self.root.update_idletasks() 
         self.barVar.set(80)
         time.sleep(1) 
 
-        self.progress['value'] = 90
-        self.root.update_idletasks() 
+        # self.progress['value'] = 90
+        # self.root.update_idletasks() 
         self.barVar.set(90)
         time.sleep(1) 
-        self.progress['value'] = 100
+        # self.progress['value'] = 100
         
 
 
@@ -129,10 +130,13 @@ class Testpage:
         score_label_value=Label(self.root,text=points,font='Bnazanin 10 bold')
         score_label_value.place(x=70,y=120)
         self.root.after_cancel(self.time_solve)
-        self.progress.destroy()
-        self.progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate', variable=self.barVar)
-        self.progress.place(x=450,y=120)
-        self.root.after_cancel(self.bar)
+        # self.progress.destroy()
+        # self.progress=Progressbar(self.root,orient=HORIZONTAL,length=100,mode='determinate', variable=self.barVar)
+        # self.progress.place(x=450,y=120)
+        # self.root.after_cancel(self.bar)
+        # self.update_labels_after = False
+        self.progress.stop()
+        self.barVar.set(0)
         # global stop_threads
         # stop_threads = True
         # self.bar.wait()
@@ -208,8 +212,13 @@ class Testpage:
             self.score_label=Label(self.root,text='score:',font='Bnazanin 10 bold')
             self.score_label.place(x=30,y=120)
 
+            # self.barVar.set(100)
             Thread(target = self.respite_time).start()
             Thread(target = self.bar).start()
+            # self.time_solve=self.root.after(10000,self.new_question)
+            # self.progress.start()
+
+
         else:
             self.root.destroy()
             self.points_label()
